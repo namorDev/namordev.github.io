@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: My first post!
 categories: [blogging]
 ---
