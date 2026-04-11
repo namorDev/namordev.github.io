@@ -30,8 +30,8 @@ twitter_username: namordev
 github_username:  namorDev
 
 # Build settings
-theme: jekyll-theme-clean-blog
-#remote_theme: pages-themes/tactile@v0.2.0
+#theme: jekyll-theme-clean-blog
+remote_theme: StartBootstrap/startbootstrap-clean-blog-jekyll
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
