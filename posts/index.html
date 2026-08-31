@@ -7,7 +7,7 @@ background: '/assets/Banner.png'
 
 
 
-{% for post in site.posts limit:5 %}
+{% for post in paginator.posts %}
 <article class="post-preview">
   <a href="{{ post.url }}">
     <h2 class="post-title">{{ post.title }}</h2>
@@ -21,3 +21,27 @@ background: '/assets/Banner.png'
 </article>
 <hr>
 {% endfor %}
+
+{% if paginator.total_pages > 1 %}
+<nav aria-label="Posts pagination">
+  <ul class="pagination justify-content-center">
+    <li class="page-item{% unless paginator.previous_page %} disabled{% endunless %}">
+      {% if paginator.previous_page %}
+      <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}" rel="prev">Newer posts</a>
+      {% else %}
+      <span class="page-link">Newer posts</span>
+      {% endif %}
+    </li>
+    <li class="page-item disabled">
+      <span class="page-link">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+    </li>
+    <li class="page-item{% unless paginator.next_page %} disabled{% endunless %}">
+      {% if paginator.next_page %}
+      <a class="page-link" href="{{ paginator.next_page_path | relative_url }}" rel="next">Older posts</a>
+      {% else %}
+      <span class="page-link">Older posts</span>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
+{% endif %}
