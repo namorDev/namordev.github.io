@@ -1,0 +1,145 @@
+---
+layout: post
+title: "Was uns Advent of Code über Qualitätsattribute lehrt"
+subtitle: "Warum eine richtige Antwort erst der Anfang guter Software ist"
+date: 2026-10-13 12:00:00 +0200
+background: '/assets/Banner.png'
+categories: [programming]
+---
+
+<h2 class="section-heading">Einleitung: Advent of Code</h2>
+
+<p>
+  <a href="https://adventofcode.com/about">Advent of Code</a> ist eine bekannte
+  Coding-Challenge, die jedes Jahr im Dezember beginnt. Es ist ein virtueller
+  Adventskalender, hinter dessen Türchen jeden Tag ein neues Programmierrätsel wartet. Advent of Code wird zum Lernen und Üben
+  genutzt, doch für manche Teilnehmenden steht im Vordergrund, die Rätsel
+  möglichst schnell zu lösen.
+</p>
+
+<p>
+  Ich begann mitten im Jahr mit dem ersten Rätsel und konnte mir dafür Zeit
+  nehmen. Mein Ziel war, eine Lösung mit möglichst gutem Design zu entwickeln.
+</p>
+
+<h2 class="section-heading">Mein Vorhaben: Bewusst auf Design achten</h2>
+
+<p>
+  Um zunächst in die Gänge zu kommen, versuchte ich, eine erste funktionierende
+  Lösung zu schreiben. Dabei orientierte ich mich am Gedanken
+  <a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">«Make it work,
+  then make it right»</a>: zuerst zum Laufen bringen, anschliessend das Design
+  verbessern. Mit der funktionierenden Lösung begann für mich die eigentliche
+  Arbeit am Design.
+</p>
+
+<h2 class="section-heading">Die erste Frage: Was bedeutet «gut»?</h2>
+
+<p>
+  Ich hatte also einen ersten Lösungsentwurf und wollte nun das Design verbessern.
+  Mein erster Blick richtete sich auf die <code>while</code>-Schleife, die mir
+  etwas <em>unleserlich</em> erschien.
+</p>
+
+<pre><code class="language-cpp">int ProblemSolver::solve(std::ifstream&amp; file)
+{
+    std::string line;
+    int position = 50;
+    int pointsToZeroCount = 0;
+    if(file.is_open())
+    {
+        std::cout &lt;&lt; "File opened successfully." &lt;&lt; std::endl;
+    }
+    else
+    {
+        std::cerr &lt;&lt; "Failed to open the file." &lt;&lt; std::endl;
+    }
+    while (std::getline(file, line)) 
+    {
+        LineData data = extractData(line);
+        int move = applyMove(data);
+        position = handleOverflow(position, move);
+        if (position == 0) 
+        {
+            pointsToZeroCount++;
+        }
+    }
+    return pointsToZeroCount;
+}</code></pre>
+
+<p>
+  Was könnte ich tun, um diesen Abschnitt <strong>lesbarer</strong> zu gestalten?
+  Dabei fragte ich mich auch, ob die Änderung Auswirkungen auf die Performance
+  des Programms hätte. Plötzlich betrachtete ich zwei Eigenschaften meiner
+  Lösung: Lesbarkeit und Performance. Waren das nicht Softwarequalitätsattribute?
+  Ich musste mir zunächst darüber klar werden, welche Eigenschaften mir wichtig
+  waren und wo ich mögliche Kompromisse eingehen wollte.
+</p>
+
+<p>Also erstellte ich eine erste Liste:</p>
+
+<ul>
+  <li>Lesbarkeit als Beitrag zur Wartbarkeit</li>
+  <li>Testbarkeit</li>
+  <li>Funktionale Eignung</li>
+  <li>Erweiterbarkeit?</li>
+</ul>
+
+<p>
+  Beim letzten Punkt war ich unschlüssig. Muss die Lösung überhaupt erweiterbar
+  sein? Welche Erweiterungen wären zu erwarten? Dieser Gedanke führte mich zur
+  zweiten grossen Frage: Welche Anforderungen sollte meine Lösung eigentlich
+  erfüllen?
+</p>
+
+<h2 class="section-heading">Die zweite Frage: Was sind die Anforderungen?</h2>
+
+<p>
+  Welche Änderungen erwarte ich noch, wenn ich das Rätsel einmal gelöst habe?
+  Um zu beurteilen, wie wichtig Erweiterbarkeit ist, musste ich zunächst klären,
+  welche Anforderungen meine Lösung erfüllen sollte und in welchem Kontext sie
+  eingesetzt wird.
+</p>
+
+<p>
+  Wer die Rätsel möglichst schnell lösen möchte, legt besonderen Wert auf eine
+  kurze Umsetzungszeit. Auch die Laufzeit kann wichtig werden, wenn eine Lösung
+  zu lange braucht, um ein Ergebnis zu liefern. Mein Vorhaben war jedoch,
+  bewusst am Design zu arbeiten. Welche Anforderungen ergaben sich daraus für
+  meine Lösung?
+</p>
+
+<p>
+  Erst auf dieser Grundlage konnte ich meine Qualitätsattribute gewichten und
+  entscheiden, wie wichtig beispielsweise Erweiterbarkeit für diese Aufgabe war.
+</p>
+
+<h2 class="section-heading">Meine Erkenntnisse</h2>
+
+<p>
+  Ich war erstaunt, wie wichtig Qualitätsattribute und klare Anforderungen auch
+  bei sehr kleinen Codeabschnitten sind. Gutes Design braucht einen Zweck und
+  einen Kontext. Qualitätsattribute machen die Vorstellung von «gut» konkreter.
+  Anforderungen helfen zu entscheiden, welche Attribute wie wichtig sind.
+</p>
+
+<p>
+  Durch diese Erfahrung habe ich gelernt, dass ich Designentscheidungen besser
+  begründen kann, wenn ich meine Anforderungen und Qualitätsziele kenne. Bei
+  meinem nächsten Auftrag möchte ich diese deshalb frühzeitig klären und
+  während der Umsetzung hinterfragen.
+</p>
+
+<p>
+  Wie werden Qualitätskriterien bei euch gehandhabt? Hast du Feedback zu diesem
+  Beitrag? Schreib mir eine
+  <a href="mailto:{{ site.email }}">E-Mail</a>.
+</p>
+
+<h2 class="section-heading">Ressourcen</h2>
+
+<ul>
+  <li><a href="https://inztitut.de/blog/glossar/iso-25010/">ISO 25010: Qualitätsmerkmale von Software</a></li>
+  <li><a href="https://adventofcode.com/">Advent of Code</a></li>
+  <li><a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make It Work, Make It Right, Make It Fast</a></li>
+</ul>
