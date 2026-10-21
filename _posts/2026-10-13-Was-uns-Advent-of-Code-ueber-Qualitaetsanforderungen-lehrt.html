@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Was uns Advent of Code über Qualitätsattribute lehrt"
+title: "Was uns Advent of Code über Qualitätsanforderungen lehrt"
 subtitle: "Warum eine richtige Antwort erst der Anfang guter Software ist"
 date: 2026-10-13 12:00:00 +0200
 background: '/assets/Banner.png'
@@ -18,13 +18,15 @@ categories: [programming]
 </p>
 
 <p>
-  Ich begann mitten im Jahr mit dem ersten Rätsel und konnte mir dafür Zeit
-  nehmen. Mein Ziel war, eine Lösung mit möglichst gutem Design zu entwickeln.
+  Ich begann mitten im Jahr mit dem <a href="https://adventofcode.com/2025/day/1">ersten Rätsel</a> und konnte mir dafür Zeit
+  nehmen. Mein Ziel war, eine Lösung mit möglichst <strong>gutem</strong> Design zu entwickeln.
 </p>
 
 <h2 class="section-heading">Mein Vorhaben: Bewusst auf Design achten</h2>
 
 <p>
+  Beim ersten Rätsel ging es darum, einen Tresor zu knacken, der mit einem Zahlenkombinationsschloss gesichert war.
+  Eine Sequenz aus Drehdistanzen mit jeweiliger Drehrichtung musste verarbeitet werden um das endgültige Passwort zu ermitteln.
   Um zunächst in die Gänge zu kommen, versuchte ich, eine erste funktionierende
   Lösung zu schreiben. Dabei orientierte ich mich am Gedanken
   <a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">«Make it work,
@@ -38,7 +40,7 @@ categories: [programming]
 <p>
   Ich hatte also einen ersten Lösungsentwurf und wollte nun das Design verbessern.
   Mein erster Blick richtete sich auf die <code>while</code>-Schleife, die mir
-  etwas <em>unleserlich</em> erschien.
+  etwas <strong>unleserlich</strong> erschien.
 </p>
 
 <pre><code class="language-cpp">int ProblemSolver::solve(std::ifstream&amp; file)
@@ -71,12 +73,13 @@ categories: [programming]
   Was könnte ich tun, um diesen Abschnitt <strong>lesbarer</strong> zu gestalten?
   Dabei fragte ich mich auch, ob die Änderung Auswirkungen auf die Performance
   des Programms hätte. Plötzlich betrachtete ich zwei Eigenschaften meiner
-  Lösung: Lesbarkeit und Performance. Waren das nicht Softwarequalitätsattribute?
+  Lösung: Lesbarkeit und Performance. 
+  Waren das nicht <a href="https://inztitut.de/blog/glossar/iso-25010/">Softwarequalitätsmerkmale</a>?
   Ich musste mir zunächst darüber klar werden, welche Eigenschaften mir wichtig
   waren und wo ich mögliche Kompromisse eingehen wollte.
 </p>
 
-<p>Also erstellte ich eine erste Liste:</p>
+<p>Also erstellte ich eine erste Liste meiner Qualitätsziele:</p>
 
 <ul>
   <li>Lesbarkeit als Beitrag zur Wartbarkeit</li>
@@ -86,9 +89,11 @@ categories: [programming]
 </ul>
 
 <p>
-  Beim letzten Punkt war ich unschlüssig. Muss die Lösung überhaupt erweiterbar
+  Die Perfomance war mir in diesem Fall nicht so wichtig, da die Lösung nur einmal
+  ausgeführt wird und die Laufzeit im Vergleich zu anderen Aufgaben vernachlässigbar ist.
+  Beim letzten Punkt (Erweiterbarkeit), war ich unschlüssig. Muss die Lösung überhaupt erweiterbar
   sein? Welche Erweiterungen wären zu erwarten? Dieser Gedanke führte mich zur
-  zweiten grossen Frage: Welche Anforderungen sollte meine Lösung eigentlich
+  zweiten grossen Frage: Welche <strong>Anforderungen</strong> sollte meine Lösung eigentlich
   erfüllen?
 </p>
 
@@ -104,23 +109,25 @@ categories: [programming]
 <p>
   Wer die Rätsel möglichst schnell lösen möchte, legt besonderen Wert auf eine
   kurze Umsetzungszeit. Auch die Laufzeit kann wichtig werden, wenn eine Lösung
-  zu lange braucht, um ein Ergebnis zu liefern. Mein Vorhaben war jedoch,
-  bewusst am Design zu arbeiten. Welche Anforderungen ergaben sich daraus für
-  meine Lösung?
+  zu lange braucht, um ein Ergebnis zu liefern (theoretisch könnte man ja das Passwort auch von Hand auf Papier berechnen. Schliesslich geht es in der Entwicklung darum,
+  Probleme zu lösen, egal wie. Software ist dabei nur eines von vielen Werkzeugen). 
+  Mein Vorhaben war jedoch, bewusst am Design zu arbeiten. 
+  Welche Anforderungen ergaben sich daraus für meine Lösung?
 </p>
 
 <p>
-  Erst auf dieser Grundlage konnte ich meine Qualitätsattribute gewichten und
+  Erst auf dieser Grundlage konnte ich meine Qualitätsanforderungen gewichten und
   entscheiden, wie wichtig beispielsweise Erweiterbarkeit für diese Aufgabe war.
 </p>
 
 <h2 class="section-heading">Meine Erkenntnisse</h2>
 
 <p>
-  Ich war erstaunt, wie wichtig Qualitätsattribute und klare Anforderungen auch
+  Ich möchte hier nicht die Details meiner Lösung vorstellen, sondern meine Erkenntnisse teilen, die ich aus dieser Erfahrung gewonnen habe.
+  Ich war erstaunt, wie wichtig Qualitätsziele und klare Anforderungen auch
   bei sehr kleinen Codeabschnitten sind. Gutes Design braucht einen Zweck und
-  einen Kontext. Qualitätsattribute machen die Vorstellung von «gut» konkreter.
-  Anforderungen helfen zu entscheiden, welche Attribute wie wichtig sind.
+  einen Kontext. Qualitätsmerkmale machen die Vorstellung von «gut» konkreter.
+  Anforderungen helfen zu entscheiden, welche Merkmale wie wichtig sind.
 </p>
 
 <p>
@@ -131,7 +138,7 @@ categories: [programming]
 </p>
 
 <p>
-  Wie werden Qualitätskriterien bei euch gehandhabt? Hast du Feedback zu diesem
+  Wie werden Qualitätsanforderungen bei euch gehandhabt? Hast du Feedback zu diesem
   Beitrag? Schreib mir eine
   <a href="mailto:{{ site.email }}">E-Mail</a>.
 </p>
@@ -142,4 +149,5 @@ categories: [programming]
   <li><a href="https://inztitut.de/blog/glossar/iso-25010/">ISO 25010: Qualitätsmerkmale von Software</a></li>
   <li><a href="https://adventofcode.com/">Advent of Code</a></li>
   <li><a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make It Work, Make It Right, Make It Fast</a></li>
+  <li><a href="https://www.dokchess.de/01_einfuehrung/02_qualitaetsziele/">Qualitätsziele in der Softwareentwicklung anhand eines arc42 Beispiels</a></li>
 </ul>
